@@ -1,70 +1,76 @@
 import CryptoJS from 'crypto-js'
 import _ from 'lodash'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
-const loadJs = function(urlstr) {
-  return new Promise(function(resolve, reject) {
-    for (let c of document.head.children) {
+const loadJs = function (urlstr: string) {
+  return new Promise(function (resolve, reject) {
+    for (let c of document.head.children as any) {
       if (c.tagName === 'SCRIPT') {
         if (c.src === urlstr) {
-          resolve()
+          resolve('loaded')
         }
       }
     }
     let head = document.getElementsByTagName('head')[0]
-    let script = document.createElement('script')
+    let script = document.createElement('script') as any
     script.type = 'text/javascript'
     script.src = urlstr
     script.onerror = reject
-    script.onload = script.onreadystatechange = function() {
-      if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+    script.onload = script.onreadystatechange = function () {
+      if (
+        !this.readyState ||
+        this.readyState === 'loaded' ||
+        this.readyState === 'complete'
+      ) {
         // Handle memory leak in IE
         script.onload = script.onreadystatechange = null
-        resolve()
+        resolve('loaded')
       }
     }
     head.insertBefore(script, head.firstChild)
   })
 }
 
-const loadCss = function(cssstr) {
-  return new Promise(function(resolve, reject) {
-    for (let c of document.head.children) {
+const loadCss = function (cssstr: string) {
+  return new Promise(function (resolve, reject) {
+    for (let c of document.head.children as any) {
       if (c.tagName === 'LINK') {
         if (c.href === cssstr) {
-          resolve()
+          resolve('loaded')
         }
       }
     }
     let head = document.getElementsByTagName('head')[0]
-    let link = document.createElement('link')
+    let link = document.createElement('link') as any
     link.type = 'text/css'
     link.rel = 'stylesheet'
     link.href = cssstr
     link.onerror = reject
-    link.onload = link.onreadystatechange = function() {
-      if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+    link.onload = link.onreadystatechange = function () {
+      if (
+        !this.readyState ||
+        this.readyState === 'loaded' ||
+        this.readyState === 'complete'
+      ) {
         // Handle memory leak in IE
         link.onload = link.onreadystatechange = null
-        resolve()
+        resolve('loaded')
       }
     }
     head.insertBefore(link, head.firstChild)
   })
 }
 
-const generateRandomAlphaNum = function(len) {
+const generateRandomAlphaNum = function (len: number) {
   let rdmString = ''
   // toSting接受的参数表示进制，默认为10进制。36进制为0-9 a-z
   for (; rdmString.length < len; ) {
-    rdmString += Math.random()
-      .toString(16)
-      .substr(2)
+    rdmString += Math.random().toString(16).substr(2)
   }
   return rdmString.substr(0, len)
 }
 
-const aesEncryptModeCFB = function(msg, pwd) {
+const aesEncryptModeCFB = function (msg: string, pwd: string) {
   let magicNo = generateRandomAlphaNum(32)
 
   let key = CryptoJS.enc.Hex.parse(CryptoJS.MD5(pwd).toString())
@@ -73,20 +79,20 @@ const aesEncryptModeCFB = function(msg, pwd) {
   let identifyCode = CryptoJS.AES.encrypt(msg, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7
+    padding: CryptoJS.pad.Pkcs7,
   }).toString()
   return [magicNo, identifyCode]
 }
 
-const clearStoreData = function() {
+const clearStoreData = function () {
   window.localStorage.clear()
 }
 
-const setStoreData = function(key, value) {
+const setStoreData = function (key: string, value: Object) {
   window.localStorage.setItem(key, JSON.stringify(value))
 }
 
-const getStoreData = function(key) {
+const getStoreData = function (key: string) {
   let storeStr = window.localStorage.getItem(key)
   if (storeStr) {
     return JSON.parse(storeStr)
@@ -95,18 +101,18 @@ const getStoreData = function(key) {
   }
 }
 
-const removeStoreData = function(key) {
+const removeStoreData = function (key: string) {
   window.localStorage.removeItem(key)
 }
-const clearSessionStoreData = function() {
+const clearSessionStoreData = function () {
   window.sessionStorage.clear()
 }
 
-const setSessionStoreData = function(key, value) {
+const setSessionStoreData = function (key: string, value: object) {
   window.sessionStorage.setItem(key, JSON.stringify(value))
 }
 
-const getSessionStoreData = function(key) {
+const getSessionStoreData = function (key: string) {
   let storeStr = window.sessionStorage.getItem(key)
   if (storeStr) {
     return JSON.parse(storeStr)
@@ -115,11 +121,11 @@ const getSessionStoreData = function(key) {
   }
 }
 
-const removeSessionStoreData = function(key) {
+const removeSessionStoreData = function (key: string) {
   window.sessionStorage.removeItem(key)
 }
 
-const checkAuth = function(key) {
+const checkAuth = function (key: string) {
   let userinfo = getStoreData('userinfo')
   if (_.findIndex(userinfo.authApis, { api_function: key }) >= 0) {
     return true
@@ -129,7 +135,7 @@ const checkAuth = function(key) {
 }
 
 //设置参数，将属性值为 null,undefined,空 属性移除
-const clearEmptyParams = params => {
+const clearEmptyParams = (params: any) => {
   for (let [key, value] of Object.entries(params)) {
     if (value === '' || value == null) delete params[key]
     if (Array.isArray(value)) {
@@ -150,42 +156,22 @@ const clearEmptyParams = params => {
  * @param type 'day' 'month' 'minute' 'seconds'
  * @returns {number}
  */
-const diff = (start, end, type = 'day') => {
+const diff = (
+  start: any,
+  end: any,
+  type: 'day' | 'month' | 'minute' | 'seconds'
+) => {
   if (!start || !end) {
     return 0
   }
-  const startDate = moment(new Date(start))
-  const endDate = moment(new Date(end))
+  const startDate = dayjs(new Date(start))
+  const endDate = dayjs(new Date(end))
   return endDate.diff(startDate, type)
 }
 
-const isFloat = function(v) {
+const isFloat = function (v: string) {
   return /^-?\d*\.\d+$/.test(v)
 }
-
-//显示数据如果是浮点型，则保留3位小数
-const resetData = function(data) {
-  if (Array.isArray(data)) {
-    for (let i = 0; i < data.length; i++) {
-      data[i] = resetData(data[i])
-    }
-  } else if (_.isObject(data)) {
-    for (let [key, value] of Object.entries(data)) {
-      if (Array.isArray(value)) {
-        data[key] = resetData(value)
-      } else if (isFloat(value)) {
-        if (key !== 'quantity') continue
-        if (value > 0) {
-          data[key] = parseFloat((value * 1).toFixed(3))
-        } else {
-          data[key] = -parseFloat(Math.abs(value * 1).toFixed(3))
-        }
-      }
-    }
-  }
-  return data
-}
-
 export default {
   loadJs,
   loadCss,
@@ -202,5 +188,4 @@ export default {
   clearEmptyParams,
   diff,
   isFloat,
-  resetData
 }

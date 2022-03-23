@@ -9,12 +9,13 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "downlevelIteration": true,
     "lib": ["esnext", "dom"],
     "baseUrl": "src" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
       "@/*": ["*"]
     },
-    "types": ["element-plus/global"],
+    "types": ["element-plus/global"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/store/modules/access.js"]
 }

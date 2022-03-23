@@ -42,6 +42,10 @@ import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { FormInstance } from 'element-plus'
+import common from '@/lib/common'
+import http from '@/lib/http'
+
+const { dispatch } = useStore()
 const router = useRouter()
 const param = reactive({
   username: '',
@@ -60,15 +64,36 @@ const rules = reactive({
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
 })
 
-const submitForm = async( formEl: FormInstance| undefined) => {
-  if(!formEl) return
-  await formEl.validate((valid, fields)=>{
-    if(valid) {
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  const valid = await formEl.validate()
+  if (valid) {
+    try {
+      const encInfo = common.aesEncryptModeCFB(param.username, param.password)
+      const response = await http.POST('/v1/api/node/auth/signin', {
+        username: param.username,
+        identify_code: encInfo[1],
+        magic_no: encInfo[0],
+        login_type: 'ADMIN',
+      })
+      const userInfo = response.data.info
+      if (userInfo.Authorization) {
+        if (!userInfo.avatar) {
+          userInfo.avatar = '/static/images/base/head.jpg'
+        }
+        await dispatch('access/login', userInfo)
+        router.push("/home")
+      } else {
+        console.log('no Authorization')
+      }
+
       console.log('submit')
-    } else {
-      console.log('error submit!', fields)
+    } catch (error) {
+      console.log(error)
     }
-  })
+  } else {
+    console.log('error submit!')
+  }
 }
 </script>
 
