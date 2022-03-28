@@ -82,7 +82,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           userInfo.avatar = '/static/images/base/head.jpg'
         }
         await dispatch('access/login', userInfo)
-        router.push("/home")
+        router.push("/dashbard/home")
       } else {
         console.log('no Authorization')
       }

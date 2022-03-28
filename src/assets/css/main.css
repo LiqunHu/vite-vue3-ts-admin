@@ -1,18 +1,17 @@
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
 html,
 body,
-#app,
-.wrapper {
+#app {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
 body {
-  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei",
+  font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, 'microsoft yahei',
     arial, STHeiTi, sans-serif;
 }
