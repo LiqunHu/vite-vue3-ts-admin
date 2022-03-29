@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import dashboard from './dashboard'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -6,18 +7,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Login',
     component: () => import('@/views/Login/Login.vue'),
   },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('@/views/Dashboard/Dashboard.vue'),
-    children: [
-      {
-        path: '/home',
-        name: 'Home',
-        component: () => import('@/views/Dashboard/Home/Home.vue')
-      },
-    ],
-  },
+  ...dashboard,
   { path: '/', redirect: { name: 'Login' } },
 ]
 

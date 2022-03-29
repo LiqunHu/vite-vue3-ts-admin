@@ -4,7 +4,7 @@
       <el-header style="padding: 0px; height:auto"><v-header /></el-header>
       <el-container style="height:100%">
         <el-aside><v-sidebar /></el-aside>
-        <el-main>Main</el-main>
+        <el-main><router-view /></el-main>
       </el-container>
     </el-container>
   </div>
