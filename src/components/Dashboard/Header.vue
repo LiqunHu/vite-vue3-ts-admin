@@ -2,7 +2,7 @@
   <div class="header">
     <!-- 折叠按钮 -->
     <div class="collapse-btn">
-      <el-icon><fold /></el-icon>
+      <i class="fa-solid fa-bars-staggered"></i>
     </div>
     <div class="logo">管理系统</div>
     <div class="header-right">
@@ -15,7 +15,7 @@
             placement="bottom"
           >
             <router-link to="/tabs">
-              <el-icon><bell /></el-icon>
+              <i class="fa-regular fa-bell"></i>
             </router-link>
           </el-tooltip>
           <span class="btn-bell-badge" v-if="message"></span>
@@ -47,11 +47,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Fold, Bell } from '@element-plus/icons-vue'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-const username = 'test'
 const message = 2
 
 const { state } = useStore()
