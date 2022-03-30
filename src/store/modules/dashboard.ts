@@ -2,6 +2,7 @@ import common from '@/lib/common'
 
 const state = {
   userInfo: common.getStoreData('userinfo') || {},
+  collapse: false
 }
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
     state.userInfo = {}
     common.clearStoreData()
   },
+  setCollapse: (state: any, cState: boolean) => {
+    state.collapse = cState
+  }
 }
 
 const actions = {
@@ -23,6 +27,9 @@ const actions = {
   },
   async logout({ commit }: { commit: Function }) {
     commit('logout')
+  },
+  setCollapse({ commit }: { commit: Function }, payload: any) {
+    commit('setCollapse', payload)
   },
 }
 

@@ -1,8 +1,9 @@
 <template>
   <div class="header">
     <!-- 折叠按钮 -->
-    <div class="collapse-btn">
-      <i class="fa-solid fa-bars-staggered"></i>
+    <div class="collapse-btn" @click="collapseChage">
+      <i v-if="collapse" class="fa-solid fa-bars"></i>
+      <i v-else class="fa-solid fa-bars-staggered"></i>
     </div>
     <div class="logo">管理系统</div>
     <div class="header-right">
@@ -52,8 +53,9 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 const message = 2
 
-const { state } = useStore()
-const userInfo = computed(() => state.access.userInfo)
+const { state, dispatch } = useStore()
+const userInfo = computed(() => state.dashboard.userInfo)
+const collapse = computed(() => state.dashboard.collapse)
 
 // 用户名下拉菜单选择事件
 const router = useRouter()
@@ -63,6 +65,9 @@ const handleCommand = command => {
   } else if (command == 'user') {
     router.push('/user')
   }
+}
+const collapseChage = () => {
+  dispatch('dashboard/setCollapse', !collapse.value)
 }
 </script>
 <style scoped>

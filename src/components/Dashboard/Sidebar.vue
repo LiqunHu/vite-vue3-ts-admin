@@ -7,6 +7,7 @@
       active-text-color="#20a0ff"
       :default-openeds="['0']"
       :unique-opened="true"
+      :collapse="collapse"
       router
     >
       <template v-for="(item, i) in userInfo.menulist">
@@ -52,16 +53,14 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 const { state } = useStore()
-const userInfo = computed(() => state.access.userInfo)
+const userInfo = computed(() => state.dashboard.userInfo)
+const collapse = computed(() => state.dashboard.collapse)
 </script>
 
 <style scoped>
 .sidebar {
   display: block;
-  position: absolute;
-  left: 0;
-  top: 60px;
-  bottom: 0;
+  height: 100%;
   overflow-y: scroll;
 }
 .sidebar::-webkit-scrollbar {

@@ -1,3 +1,3 @@
-import access from './access'
+import dashboard from './dashboard'
 
-export default { access }
+export default { dashboard }
