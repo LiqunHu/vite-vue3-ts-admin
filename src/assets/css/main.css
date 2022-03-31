@@ -14,6 +14,8 @@ body,
 body {
   font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, 'microsoft yahei',
     arial, STHeiTi, sans-serif;
+  background: #d9e0e7;
+  font-size: 12px;
 }
 
 .m-t-3 {
@@ -57,4 +59,8 @@ body {
 }
 .m-r-20 {
   margin-right: 20px;
+}
+
+.content {
+  padding: 2px 5px;
 }

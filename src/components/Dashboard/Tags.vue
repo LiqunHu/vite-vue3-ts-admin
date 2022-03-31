@@ -1,33 +1,36 @@
 <template>
-  <div class="tags" v-if="showTags">
-    <ul>
-      <li
-        class="tags-li"
-        v-for="(item, index) in tagsList"
-        :class="{ active: isActive(item.path) }"
-        :key="index"
-      >
-        <router-link :to="item.path" class="tags-li-title">{{
-          item.title
-        }}</router-link>
-        <span class="tags-li-icon" @click="closeTags(index)">
-          <i class="fa-solid fa-xmark"></i>
-        </span>
-      </li>
-    </ul>
-    <div class="tags-close-box">
-      <el-dropdown @command="handleTags">
-        <el-button size="small" type="primary">
-          标签选项
-          <i class="m-l-5 fa-solid fa-angle-down"></i>
-        </el-button>
-        <template #dropdown>
-          <el-dropdown-menu size="small">
-            <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-            <el-dropdown-item command="all">关闭所有</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+  <div class="tags">
+    <div class="tags-body">
+      <ul>
+        <li
+          class="tags-li"
+          v-for="(item, index) in tagsList"
+          :class="{ active: isActive(item.path) }"
+          :key="index"
+        >
+          <router-link :to="item.path" class="tags-li-title">{{
+            item.title
+          }}</router-link>
+          <span class="tags-li-icon" @click="closeTags(index)">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </li>
+      </ul>
+
+      <div class="tags-close-box">
+        <el-dropdown @command="handleTags">
+          <el-button size="small" type="primary">
+            标签选项
+            <i class="m-l-5 fa-solid fa-angle-down"></i>
+          </el-button>
+          <template #dropdown>
+            <el-dropdown-menu size="small">
+              <el-dropdown-item command="other">关闭其他</el-dropdown-item>
+              <el-dropdown-item command="all">关闭所有</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -44,7 +47,6 @@ const isActive = (path: string) => {
 
 const { state, commit } = useStore()
 const tagsList = computed(() => state.dashboard.tagsList)
-const showTags = computed(() => tagsList.value.length > 0)
 
 // 关闭单个标签
 const closeTags = (index: number) => {
@@ -109,9 +111,14 @@ const handleTags = (command: string) => {
   position: relative;
   height: 30px;
   overflow: hidden;
-  background: #fff;
-  padding-right: 120px;
+  padding: 2px 5px;
   box-shadow: 0 5px 10px #ddd;
+}
+
+.tags-body {
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 
 .tags ul {
@@ -164,15 +171,13 @@ const handleTags = (command: string) => {
 
 .tags-close-box {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
   box-sizing: border-box;
   padding-top: 1px;
   text-align: center;
   width: 110px;
-  height: 30px;
   background: #fff;
-  box-shadow: -3px 0 15px 3px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 </style>

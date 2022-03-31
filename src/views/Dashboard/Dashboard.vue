@@ -10,7 +10,9 @@
         /></el-aside>
         <el-main style="padding: 0px;">
           <v-tags />
-          <router-view />
+          <div class="content">
+            <router-view />
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -21,3 +23,5 @@ import vHeader from '@/components/Dashboard/Header.vue'
 import vSidebar from '@/components/Dashboard/Sidebar.vue'
 import vTags from '@/components/Dashboard/Tags.vue'
 </script>
+<style scoped>
+</style>
