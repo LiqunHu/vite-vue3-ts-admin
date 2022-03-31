@@ -2,7 +2,8 @@ import common from '@/lib/common'
 
 const state = {
   userInfo: common.getStoreData('userinfo') || {},
-  collapse: false
+  collapse: false,
+  tagsList: [],
 }
 
 const mutations = {
@@ -18,7 +19,20 @@ const mutations = {
   },
   setCollapse: (state: any, cState: boolean) => {
     state.collapse = cState
-  }
+  },
+  delTagsItem(state: any, data: any) {
+    state.tagsList.splice(data.index, 1)
+  },
+  setTagsItem(state: any, data: any) {
+    state.tagsList.push(data)
+  },
+  clearTags(state: any) {
+    console.log(3333333)
+    state.tagsList = []
+  },
+  closeTagsOther(state: any, data: any) {
+    state.tagsList = data
+  },
 }
 
 const actions = {

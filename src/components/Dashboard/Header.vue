@@ -87,6 +87,7 @@ a i {
 .collapse-btn {
   float: left;
   padding: 0 13px;
+  width: 22px;
   cursor: pointer;
   line-height: 60px;
 }
