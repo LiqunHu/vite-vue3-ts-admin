@@ -67,7 +67,7 @@ const generateRandomAlphaNum = function (len: number) {
   for (; rdmString.length < len; ) {
     rdmString += Math.random().toString(16).substr(2)
   }
-  return rdmString.substr(0, len)
+  return rdmString.substring(0, len)
 }
 
 const aesEncryptModeCFB = function (msg: string, pwd: string) {
@@ -82,6 +82,10 @@ const aesEncryptModeCFB = function (msg: string, pwd: string) {
     padding: CryptoJS.pad.Pkcs7,
   }).toString()
   return [magicNo, identifyCode]
+}
+
+const commonFault = function(err: any) {
+  console.error(err)
 }
 
 const clearStoreData = function () {
@@ -186,6 +190,7 @@ export default {
   removeSessionStoreData,
   checkAuth,
   clearEmptyParams,
+  commonFault,
   diff,
   isFloat,
 }

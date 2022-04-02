@@ -8,7 +8,7 @@ instance.interceptors.request.use(
   (config) => {
     const token = common.getStoreData('token')
     if (token && config.headers) {
-      config.headers['Authorization'] = token
+      config.headers['Authorization'] = 'Bearer ' + token
     }
     return config
   },

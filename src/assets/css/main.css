@@ -60,7 +60,58 @@ body {
 .m-r-20 {
   margin-right: 20px;
 }
+.m-b-5 {
+  margin-bottom: 5px;
+}
+.m-b-10 {
+  margin-bottom: 10px;
+}
+.m-b-15 {
+  margin-bottom: 15px;
+}
+.m-b-20 {
+  margin-bottom: 20px;
+}
 
 .content {
   padding: 2px 5px;
+  height: calc(100vh - 60px);
+}
+
+.panel {
+  height: 100%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 3px;
+}
+.panel-heading {
+  padding: 10px 15px;
+  height: 20px;
+  border: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background: #242a30;
+}
+.panel-title {
+  line-height: 20px;
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: inherit;
+}
+.panel-body {
+  background-color: #fff;
+}
+
+.panel-toolbar {
+  border-bottom: 1px solid #eee;
+  padding: 10px 15px;
+  background: #fff;
+}
+
+.el-tree-node:focus > .el-tree-node__content {
+  background-color: rgb(45, 140, 240) !important;
 }
