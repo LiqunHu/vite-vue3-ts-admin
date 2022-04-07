@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js'
 import _ from 'lodash'
 import dayjs from 'dayjs'
+import { ElMessage } from 'element-plus'
 
 const loadJs = function (urlstr: string) {
   return new Promise(function (resolve, reject) {
@@ -84,8 +85,36 @@ const aesEncryptModeCFB = function (msg: string, pwd: string) {
   return [magicNo, identifyCode]
 }
 
+const commonSuccess = function(msg: string) {
+  ElMessage.success({
+    showClose: true,
+    message: msg,
+  })
+}
+
+const commonInfo = function(msg: string) {
+  ElMessage.info({
+    showClose: true,
+    message: msg,
+  })
+}
+
 const commonFault = function(err: any) {
   console.error(err)
+}
+
+const commonWarning = function(msg: string) {
+  ElMessage.warning({
+    showClose: true,
+    message: msg,
+  })
+}
+
+const commonError = function(msg: string) {
+  ElMessage.error({
+    showClose: true,
+    message: msg,
+  })
 }
 
 const clearStoreData = function () {
@@ -190,7 +219,11 @@ export default {
   removeSessionStoreData,
   checkAuth,
   clearEmptyParams,
+  commonSuccess,
+  commonInfo,
   commonFault,
+  commonWarning,
+  commonError,
   diff,
   isFloat,
 }

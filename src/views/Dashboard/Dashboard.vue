@@ -8,7 +8,7 @@
         <el-aside :width="'200'" style="height: calc(100vh - 60px)"
           ><v-sidebar
         /></el-aside>
-        <el-main style="padding: 0px;">
+        <el-main style="padding: 0px; height: calc(100vh - 60px)">
           <v-tags />
           <div class="content">
             <router-view />
@@ -23,5 +23,4 @@ import vHeader from '@/components/Dashboard/Header.vue'
 import vSidebar from '@/components/Dashboard/Sidebar.vue'
 import vTags from '@/components/Dashboard/Tags.vue'
 </script>
-<style scoped>
-</style>
+<style scoped></style>
