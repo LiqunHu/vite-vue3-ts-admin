@@ -104,6 +104,8 @@ body {
 }
 .panel-body {
   background-color: #fff;
+  height: calc(100vh - 210px);
+  overflow: auto;
 }
 
 .panel-toolbar {

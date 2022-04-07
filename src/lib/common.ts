@@ -85,32 +85,32 @@ const aesEncryptModeCFB = function (msg: string, pwd: string) {
   return [magicNo, identifyCode]
 }
 
-const commonSuccess = function(msg: string) {
+const success = function(msg: string) {
   ElMessage.success({
     showClose: true,
     message: msg,
   })
 }
 
-const commonInfo = function(msg: string) {
+const info = function(msg: string) {
   ElMessage.info({
     showClose: true,
     message: msg,
   })
 }
 
-const commonFault = function(err: any) {
+const fault = function(err: any) {
   console.error(err)
 }
 
-const commonWarning = function(msg: string) {
+const warning = function(msg: string) {
   ElMessage.warning({
     showClose: true,
     message: msg,
   })
 }
 
-const commonError = function(msg: string) {
+const error = function(msg: string) {
   ElMessage.error({
     showClose: true,
     message: msg,
@@ -219,11 +219,11 @@ export default {
   removeSessionStoreData,
   checkAuth,
   clearEmptyParams,
-  commonSuccess,
-  commonInfo,
-  commonFault,
-  commonWarning,
-  commonError,
+  success,
+  info,
+  fault,
+  warning,
+  error,
   diff,
   isFloat,
 }
