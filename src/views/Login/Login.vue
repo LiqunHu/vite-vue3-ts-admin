@@ -43,7 +43,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import common from '@/lib/common'
-import http from '@/lib/http'
+import request from '@/lib/request'
 
 const { dispatch } = useStore()
 const router = useRouter()
@@ -70,7 +70,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (valid) {
     try {
       const encInfo = common.aesEncryptModeCFB(param.username, param.password)
-      const response = await http.POST('/v1/api/node/auth/signin', {
+      const response = await request.post('/v1/api/node/auth/signin', {
         username: param.username,
         identify_code: encInfo[1],
         magic_no: encInfo[0],

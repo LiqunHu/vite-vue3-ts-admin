@@ -110,7 +110,7 @@
 import _ from 'lodash'
 import { reactive, ref } from 'vue'
 import { FormInstance, ElMessageBox } from 'element-plus'
-import http from '@/lib/http'
+import request from '@/lib/request'
 import common from '@/lib/common'
 import icons from '@/assets/icon.json'
 
@@ -145,7 +145,7 @@ const defaultProps = {
 
 const initPage = async () => {
   try {
-    let response = await http.POST(apiUrl + 'init', {})
+    let response = await request.post(apiUrl + 'init', {})
     pagePara.value = JSON.parse(JSON.stringify(response.data.info))
     await getTreeData()
   } catch (error) {
@@ -154,7 +154,7 @@ const initPage = async () => {
 }
 
 const getTreeData = async () => {
-  let response = await http.POST(apiUrl + 'search', {})
+  let response = await request.post(apiUrl + 'search', {})
   treeData.value = response.data.info
 }
 
@@ -188,10 +188,10 @@ const submitFolder = async () => {
     try {
       if (action.value === 'add') {
         workPara.value.parent_id = actNode.value.systemmenu_id
-        await http.POST(apiUrl + 'addFolder', workPara.value)
+        await request.post(apiUrl + 'addFolder', workPara.value)
         common.success('增加目录成功')
       } else if (action.value === 'modify') {
-        await http.POST(apiUrl + 'modifyFolder', workPara.value)
+        await request.post(apiUrl + 'modifyFolder', workPara.value)
         common.success('增加目录成功')
       }
 
@@ -224,10 +224,10 @@ const submitMenu = async () => {
     try {
       if (action.value === 'add') {
         workPara.value.parent_id = actNode.value.systemmenu_id
-        await http.POST(apiUrl + 'addMenu', workPara.value)
+        await request.post(apiUrl + 'addMenu', workPara.value)
         common.success('增加菜单成功')
       } else if (action.value === 'modify') {
-        await http.POST(apiUrl + 'modifyMenu', workPara.value)
+        await request.post(apiUrl + 'modifyMenu', workPara.value)
         common.success('修改菜单成功')
       }
       await getTreeData()
@@ -267,7 +267,7 @@ const editNodeModal = () => {
 const removeNode = (node: any) => {
   ElMessageBox.confirm('确认要删除选定的对象？', '警告', { confirmButtonText: '确认', cancelButtonText: '取消', type: 'warning' }).then(async () => {
     try {
-      await http.POST(apiUrl + 'remove', { systemmenu_id: node.systemmenu_id })
+      await request.post(apiUrl + 'remove', { systemmenu_id: node.systemmenu_id })
       common.success('删除成功')
       await getTreeData()
     } catch (error) {

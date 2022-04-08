@@ -2,9 +2,9 @@ import axios from 'axios'
 import common from './common'
 import { ElMessage } from 'element-plus'
 
-const instance = axios.create({ timeout: 1000 * 12 })
+const request = axios.create({ timeout: 1000 * 12 })
 //拦截request
-instance.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
     const token = common.getStoreData('token')
     if (token && config.headers) {
@@ -16,7 +16,7 @@ instance.interceptors.request.use(
 )
 
 //拦截response
-instance.interceptors.response.use(
+request.interceptors.response.use(
   // 请求成功
   (res) => {
     if (res.data.errno !== '0') {
@@ -86,8 +86,5 @@ const errorHandle = (status: number, msg: string) => {
   }
 }
 
-export default {
-  POST(url: string, params: any) {
-    return instance.post(url, params)
-  },
-}
+
+export default request
