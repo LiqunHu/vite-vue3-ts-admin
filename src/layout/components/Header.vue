@@ -10,11 +10,7 @@
       <div class="header-user-con">
         <!-- 消息中心 -->
         <div class="btn-bell">
-          <el-tooltip
-            effect="dark"
-            :content="message ? `有${message}条未读消息` : `消息中心`"
-            placement="bottom"
-          >
+          <el-tooltip effect="dark" :content="message ? `有${message}条未读消息` : `消息中心`" placement="bottom">
             <router-link to="/tabs">
               <i class="fa-regular fa-bell"></i>
             </router-link>
@@ -37,9 +33,7 @@
                 <el-dropdown-item>项目仓库</el-dropdown-item>
               </a>
               <el-dropdown-item command="user">个人中心</el-dropdown-item>
-              <el-dropdown-item divided command="loginout"
-                >退出登录</el-dropdown-item
-              >
+              <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -59,7 +53,7 @@ const collapse = computed(() => state.dashboard.collapse)
 
 // 用户名下拉菜单选择事件
 const router = useRouter()
-const handleCommand = command => {
+const handleCommand = (command: string) => {
   if (command == 'loginout') {
     router.push('/login')
   } else if (command == 'user') {

@@ -19,8 +19,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import vHeader from '@/components/Dashboard/Header.vue'
-import vSidebar from '@/components/Dashboard/Sidebar.vue'
-import vTags from '@/components/Dashboard/Tags.vue'
+import vHeader from './components/Header.vue'
+import vSidebar from './components/Sidebar.vue'
+import vTags from './components/Tags.vue'
 </script>
 <style scoped></style>
