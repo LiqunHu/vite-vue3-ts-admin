@@ -27,7 +27,6 @@ const mutations = {
     state.tagsList.push(data)
   },
   clearTags(state: any) {
-    console.log(3333333)
     state.tagsList = []
   },
   closeTagsOther(state: any, data: any) {
