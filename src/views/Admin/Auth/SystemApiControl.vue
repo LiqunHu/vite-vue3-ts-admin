@@ -192,7 +192,7 @@ const submitFolder = async () => {
         common.success('增加目录成功')
       } else if (action.value === 'modify') {
         await request.post(apiUrl + 'modifyFolder', workPara.value)
-        common.success('增加目录成功')
+        common.success('修改目录成功')
       }
 
       await getTreeData()
@@ -239,7 +239,7 @@ const submitMenu = async () => {
 }
 
 const editNodeModal = () => {
-  if (_.isEmpty(actNode.value)) {
+  if (_.isEmpty(actNode.value) || actNode.value.systemmenu_id === 0) {
     return common.warning('请选择一个节点')
   }
   action.value = 'modify'
