@@ -88,10 +88,7 @@ function convert_word_array_to_uint8Array(wordArray: any) {
 
 const aesEncryptModeECB = function (msg: string, pwd: string): string {
   let key = CryptoJS.enc.Utf8.parse(CryptoJS.MD5(pwd).toString())
-  let iv = CryptoJS.enc.Utf8.parse(msg)
-  CryptoJS.pad.Pkcs7.pad(iv, 4)
   let identifyCode = CryptoJS.AES.encrypt(msg, key, {
-    iv: iv,
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.ZeroPadding,
   })
