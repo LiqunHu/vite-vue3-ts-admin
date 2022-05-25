@@ -69,11 +69,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   const valid = await formEl.validate()
   if (valid) {
     try {
-      const encInfo = common.aesEncryptModeCFB(param.username, param.password)
+      const identify_code = common.aesEncryptModeECB(param.username, param.password)
       const response = await request.post('/v1/api/node/auth/signin', {
         username: param.username,
-        identify_code: encInfo[1],
-        magic_no: encInfo[0],
+        identify_code: identify_code,
         login_type: 'ADMIN',
       })
       const userInfo = response.data.info

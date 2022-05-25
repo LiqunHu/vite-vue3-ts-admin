@@ -71,18 +71,31 @@ const generateRandomAlphaNum = function (len: number) {
   return rdmString.substring(0, len)
 }
 
-const aesEncryptModeCFB = function (msg: string, pwd: string) {
-  let magicNo = generateRandomAlphaNum(32)
+function convert_word_array_to_uint8Array(wordArray: any) {
+  var len = wordArray.words.length,
+      u8_array = new Uint8Array(len << 2),
+      offset = 0, word, i
+  ;
+  for (i=0; i<len; i++) {
+      word = wordArray.words[i];
+      u8_array[offset++] = word >> 24;
+      u8_array[offset++] = (word >> 16) & 0xff;
+      u8_array[offset++] = (word >> 8) & 0xff;
+      u8_array[offset++] = word & 0xff;
+  }
+  return u8_array;
+}
 
-  let key = CryptoJS.enc.Hex.parse(CryptoJS.MD5(pwd).toString())
-  let iv = CryptoJS.enc.Hex.parse(magicNo)
-
+const aesEncryptModeECB = function (msg: string, pwd: string): string {
+  let key = CryptoJS.enc.Utf8.parse(CryptoJS.MD5(pwd).toString())
+  let iv = CryptoJS.enc.Utf8.parse(msg)
+  CryptoJS.pad.Pkcs7.pad(iv, 4)
   let identifyCode = CryptoJS.AES.encrypt(msg, key, {
     iv: iv,
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7,
-  }).toString()
-  return [magicNo, identifyCode]
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.ZeroPadding,
+  })
+  return identifyCode.toString()
 }
 
 const success = function(msg: string) {
@@ -208,7 +221,7 @@ const isFloat = function (v: string) {
 export default {
   loadJs,
   loadCss,
-  aesEncryptModeCFB,
+  aesEncryptModeECB,
   clearStoreData,
   setStoreData,
   getStoreData,
