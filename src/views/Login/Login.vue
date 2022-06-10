@@ -70,7 +70,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (valid) {
     try {
       const identify_code = common.aesEncryptModeECB(param.username, param.password)
-      const response = await request.post('/v1/api/node/auth/signin', {
+      const response = await request.post('/v1/api/auth/signin', {
         username: param.username,
         identify_code: identify_code,
         login_type: 'ADMIN',
